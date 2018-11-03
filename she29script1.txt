@@ -1,0 +1,17 @@
+SHOW DATABASES;
+DROP DATABASE IF EXISTS she29assign2db;
+CREATE DATABASE she29assign2db;
+USE she29assign2db;
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON she29assign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+SHOW TABLES;
+CREATE TABLE product(productid VARCHAR(2) NOT NULL, description VARCHAR(20), costperitem FLOAT, quantity INT, PRIMARY KEY(productid));
+CREATE TABLE agent(agentid VARCHAR(2) NOT NULL, firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), commissionpercentage FLOAT, PRIMARY KEY(agentid));
+CREATE TABLE customer(customerid VARCHAR(2) NOT NULL, firstname VARCHAR(30), lastname VARCHAR(30), city VARCHAR(15), phonenumber INT, agentid VARCHAR(2), PRIMARY KEY(customerid), FOREIGN KEY(agentid) REFERENCES agent(agentid));
+CREATE TABLE purchase(customerid VARCHAR(2) NOT NULL, productid VARCHAR(2) NOT NULL, quantity INT, PRIMARY KEY(customerid, productid), FOREIGN KEY(customerid) REFERENCES customer(customerid), FOREIGN KEY(productid) REFERENCES product(productid));
+SHOW TABLES;
+
+
