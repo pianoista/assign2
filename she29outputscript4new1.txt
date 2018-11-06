@@ -1,0 +1,55 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1050 (42S01) at line 6: Table 'PurchaseInformationNew' already exists
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstname	lastname	city	commissionpercentage
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+22	Courtney	Cox	New York	25
+25	Shan	He	Tianjin	60
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM customer
+--------------
+
+customerid	firstname	lastname	city	phonenumber	agentid
+10	Barney	Rubble	Boston	7771234	11
+12	Monty	Burns	Springfield	7890000	99
+13	Super	women	Kypto	8881234	33
+14	Peter	Griffens	Providence	9874567	99
+15	Fred	Flintstone	Boston	7772345	11
+21	Homer	Simpson	Springfield	6868956	99
+31	Sideshow	Bob	Springfield	6865555	66
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	costperitem	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM purchase
+--------------
+
+customerid	productid	quantity
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	66	5
+31	78	5
+31	99	5
+--------------
+CREATE VIEW PurchaseInformationNew AS SELECT firstname, lastname, description, p.quantity, costperitem, pr.costperitem*p.quantity AS totalcost FROM customer c INNER JOIN purchase p ON c.customerid=p.customerid INNER JOIN product pr ON pr.productid=p.productid ORDER BY lastname
+--------------
+
