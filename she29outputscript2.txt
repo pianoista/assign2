@@ -1,6 +1,21 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 2 (HY000) at line 2: File 'productinfo' not found (Errcode: 2 - No such file or directory)
+ERROR 1062 (23000) at line 4: Duplicate entry '66' for key 'PRIMARY'
 --------------
 LOAD DATA LOCAL INFILE 'productinfo' INTO TABLE product FIELDS TERMINATED BY ','
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	costperitem	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO product VALUES(66,"Elbow pads",14.25,120)
 --------------
 
