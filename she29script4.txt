@@ -1,0 +1,13 @@
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM product;
+SELECT * FROM purchase;
+CREATE VIEW PurchaseInformation077 AS SELECT firstname, lastname, description, p.quantity, costperitem, pr.costperitem*p.quantity AS totalcost FROM customer c INNER JOIN purchase p ON c.customerid=p.customerid INNER JOIN product pr ON pr.productid=p.productid ORDER BY lastname;
+SELECT * FROM PurchaseInformation077;
+SELECT * FROM PurchaseInformation077 WHERE totalcost>100;
+DELETE FROM product WHERE description="Bell";
+--the row for "Bell" was deleted because no other table references to it.
+SELECT * FROM product;
+DELETE FROM agent WHERE city="Springfield";
+--the row for "Springfield" was not deleted because there were customers in the customer table referencing to agent from Springfield.
+
