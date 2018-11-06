@@ -1,0 +1,31 @@
+USE she29assign2db;
+-- Query 1 
+SELECT description FROM product;
+-- Query 2
+SELECT DISTINCT city FROM customer;
+-- Query 3
+SELECT * FROM agent ORDER BY city;
+-- Query 4
+SELECT firstname, lastname FROM customer WHERE city="springfield";
+-- Query 5
+SELECT customer.lastname FROM customer,agent WHERE customer.agentid=agent.agentid AND agent.firstname="Regis";
+-- Query 6
+SELECT description FROM product WHERE description LIKE "%pad%" OR "%Pad%";
+-- Query 7
+SELECT lastname, description, purchase.quantity FROM customer INNER JOIN purchase ON customer.customerid=purchase.customerid INNER JOIN product ON product.productid=purchase.productid;
+-- Query 8
+SELECT SUM(quantity) AS "Homer's Total Purchases" FROM customer, purchase WHERE purchase.customerid=customer.customerid AND customer.firstname="Homer";
+-- Query 9 
+SELECT firstname, lastname, SUM(quantity) FROM customer, purchase WHERE customer.customerid=purchase.customerid GROUP BY purchase.customerid;
+-- Query 10
+SELECT description, quantity FROM product WHERE productid NOT IN(SELECT productid FROM purchase);
+-- Query 11
+SELECT description, quantity FROM product WHERE productid NOT IN(SELECT productid FROM purchase,customer WHERE purchase.customerid = customer.customerid AND customer.firstname="Fred" AND customer.lastname="Flintstone");
+-- Query 12
+SELECT agent.firstname, agent.lastname, customer.firstname, customer.lastname FROM agent, customer WHERE agent.city=customer.city;
+-- Query 13
+SELECT SUM(purchase.quantity) AS QuantityofKneePadsPurchased FROM purchase, product WHERE purchase.productid=product.productid AND product.description="knee pads";
+-- Query 14
+SELECT description FROM product INNER JOIN(SELECT productid, COUNT(customerid) FROM purchase GROUP BY productid HAVING COUNT(customerid)>3) AS PopularProduct ON product.productid=PopularProduct.productid;
+-- Query 15
+SELECT agent.firstname, agent.lastname FROM agent,customer,purchase,product WHERE customer.agentid=agent.agentid AND customer.customerid=purchase.customerid AND purchase.productid=product.productid AND product.description="knee pads"; 
